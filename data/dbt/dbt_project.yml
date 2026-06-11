@@ -1,0 +1,17 @@
+name: kalambatan
+version: "1.0.0"
+profile: kalambatan
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+target-path: target
+clean-targets: [target, dbt_packages]
+
+models:
+  kalambatan:
+    staging:
+      +materialized: view
+      +schema: silver
+    marts:
+      +materialized: table
+      +schema: gold

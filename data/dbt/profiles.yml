@@ -1,0 +1,21 @@
+# Two interchangeable targets, same models:
+#   duckdb   — zero-setup local analytics (default)
+#   postgres — primary warehouse
+# Select with: dbt build --target postgres
+kalambatan:
+  target: duckdb
+  outputs:
+    duckdb:
+      type: duckdb
+      path: ../warehouse/kalambatan.duckdb
+      schema: analytics
+      threads: 4
+    postgres:
+      type: postgres
+      host: "{{ env_var('KALAMBATAN_PG_HOST', 'localhost') }}"
+      port: 5432
+      user: "{{ env_var('KALAMBATAN_PG_USER', 'kalambatan') }}"
+      password: "{{ env_var('KALAMBATAN_PG_PASSWORD', 'kalambatan') }}"
+      dbname: kalambatan
+      schema: analytics
+      threads: 4
