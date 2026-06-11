@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        tests: [unique, not_null]
+      - name: plan_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_plans')
+              field: plan_id
+  - name: stg_plans
+    columns:
+      - name: plan_id
+        tests: [unique, not_null]
+      - name: plan_type
+        tests:
+          - accepted_values:
+              values: [prepaid, postpaid]
+  - name: stg_billing
+    columns:
+      - name: invoice_id
+        tests: [unique, not_null]
+      - name: payment_status
+        tests:
+          - accepted_values:
+              values: [paid, late, unpaid]
+  - name: stg_network_usage
+    columns:
+      - name: usage_id
+        tests: [unique, not_null]
+  - name: stg_support_tickets
+    columns:
+      - name: ticket_id
+        tests: [unique, not_null]
+  - name: stg_retention_actions
+    columns:
+      - name: action_id
+        tests: [unique, not_null]
+  - name: stg_churn_events
+    columns:
+      - name: churn_id
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [unique, not_null]   # a customer churns at most once
+      - name: churn_type
+        tests:
+          - accepted_values:
+              values: [voluntary, involuntary]
