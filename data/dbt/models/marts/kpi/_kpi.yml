@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: kpi_executive_monthly
+    description: Company-wide monthly KPIs (Executive Command Center).
+    columns:
+      - name: month_key
+        tests: [unique, not_null]
+  - name: kpi_regional_monthly
+    description: Regional churn and revenue performance by month.
